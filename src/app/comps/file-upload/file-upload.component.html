@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="tw-flex tw-justify-start tw-items-center tw-gap-4">
+    <input
+      #input
+      type="file"
+      formControlName="file"
+      class="tw-hidden"
+      (change)="onFileChange($event)"
+    />
+    <button
+      mat-flat-button
+      color="accent"
+      type="button"
+      (click)="input.click()"
+    >
+      File Upload
+    </button>
+    <span>File name: {{ form.controls["fileSource"].value.name }}</span>
+  </div>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    class="tw-mt-4"
+    [disabled]="!form.valid"
+  >
+    Accept
+  </button>
+</form>

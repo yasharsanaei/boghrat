@@ -15,10 +15,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-layout',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatToolbarModule,
     MatButtonModule,
