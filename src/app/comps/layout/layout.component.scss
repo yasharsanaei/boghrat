@@ -15,10 +15,3 @@
   top: 0;
   z-index: 1;
 }
-
-.content {
-  @media only screen and (max-width: 960px) {
-    padding: 1rem;
-  }
-  padding: 2rem;
-}
