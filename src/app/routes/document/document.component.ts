@@ -1,13 +1,15 @@
 import { Component, computed, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DocumentService } from '../../services/document.service';
-import { ExcelDoc, ExcelSheet } from '../../types/excel';
 import { combineLatest, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { TableComponent } from '../../comps/table/table.component';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
+import { TableComponent } from '../../comps/table/table.component';
+import { DocumentService } from '../../services/document.service';
+import { ExcelDoc, ExcelSheet } from '../../types/excel';
 
 export interface PeriodicElement {
   name: string;
@@ -24,7 +26,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-document',
   standalone: true,
-  imports: [CommonModule, TableComponent, MatListModule, MatTableModule],
+  imports: [
+    CommonModule,
+    TableComponent,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+  ],
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.scss'],
 })

@@ -4,14 +4,10 @@
 
 <div class="tw-mt-8" *ngIf="sheets() !== undefined">
   <ng-container *ngFor="let sheet of sheets()">
-    <p>{{ sheet.name }}</p>
-    <table mat-table [dataSource]="sheet.data" class="mat-elevation-z8">
-      <ng-container *ngFor="let col of sheet.columns" [matColumnDef]="col">
-        <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
-        <td mat-cell *matCellDef="let element">{{ element[col] }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="sheet.columns"></tr>
-      <tr mat-row *matRowDef="let row; columns: sheet.columns"></tr>
-    </table>
+    <app-table
+      [name]="sheet.name"
+      [data]="sheet.data"
+      [columns]="sheet.columns"
+    />
   </ng-container>
 </div>

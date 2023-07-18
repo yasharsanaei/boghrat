@@ -5,7 +5,7 @@ export interface ExcelDoc<T = object> {
   numberOfSheets: number;
 }
 
-type ObjectFromList<
+export type ObjectFromList<
   keys extends ReadonlyArray<string>,
   objectValues = object,
 > = {
