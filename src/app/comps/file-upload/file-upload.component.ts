@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { DocumentService } from '../../services/document.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -18,7 +19,10 @@ import {
 export class FileUploadComponent {
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private documentService: DocumentService,
+  ) {
     this.form = this.formBuilder.group({
       file: ['', [Validators.required]],
       fileSource: ['', Validators.required],
@@ -26,12 +30,8 @@ export class FileUploadComponent {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      console.log(
-        '----> form fileSource: ',
-        this.form.controls['fileSource'].value,
-      );
-    }
+    if (!this.form.valid) return;
+    this.documentService.loadFile(this.form.controls['fileSource'].value);
   }
 
   onFileChange($event: Event) {
