@@ -63,8 +63,4 @@ export class DocumentService {
     if (docs === null) return undefined;
     return JSON.parse(docs) as ExcelDoc<unknown>[];
   }
-
-  getDocumentById(id: string) {
-    return this.documents$.value.find((d) => d.id === id);
-  }
 }
