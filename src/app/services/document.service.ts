@@ -29,7 +29,12 @@ export class DocumentService {
         sheets[key] = utils.sheet_to_json(workBook.Sheets[key]);
       });
 
-      this.addDocument({ id: uuidV4(), name: file.name, sheets: sheets });
+      this.addDocument({
+        id: uuidV4(),
+        name: file.name,
+        sheets: sheets,
+        numberOfSheets: Object.keys(sheets).length,
+      });
     };
   }
 
