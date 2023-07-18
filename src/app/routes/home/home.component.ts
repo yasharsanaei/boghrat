@@ -25,7 +25,4 @@ export class HomeComponent {
   documents: Signal<ExcelDoc<unknown>[] | undefined> = toSignal(
     this.documentService.documents$,
   );
-
-  // constructor() {}
-  protected readonly Object = Object;
 }
