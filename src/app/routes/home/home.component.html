@@ -46,5 +46,10 @@
     <mat-card-content>
       <p class="mat-body-1">Number of Sheets: {{ doc.numberOfSheets }}</p>
     </mat-card-content>
+    <mat-card-actions [align]="'end'">
+      <a mat-raised-button color="primary" [routerLink]="'/document/' + doc.id"
+        >View Table</a
+      >
+    </mat-card-actions>
   </mat-card>
 </div>

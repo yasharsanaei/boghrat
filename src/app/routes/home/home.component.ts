@@ -11,6 +11,8 @@ import { FileUploadComponent } from '../../comps/file-upload/file-upload.compone
 import { DocumentService } from '../../services/document.service';
 import { ExcelDoc } from '../../types/excel';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrls: ['./home.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatCardModule, MatListModule, FileUploadComponent],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatListModule,
+    FileUploadComponent,
+    RouterLink,
+    MatButtonModule,
+  ],
 })
 export class HomeComponent {
   documentService: DocumentService = inject(DocumentService);
