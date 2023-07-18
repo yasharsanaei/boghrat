@@ -1,10 +1,21 @@
-export interface ExcelDoc<T> {
+export interface ExcelDoc<T = object> {
   id: string;
   name: string;
-  sheets: ExcelSheet<T>;
+  sheets: ExcelSheet<T>[];
   numberOfSheets: number;
 }
 
-export interface ExcelSheet<T> {
-  [key: string]: T[];
+type ObjectFromList<
+  keys extends ReadonlyArray<string>,
+  objectValues = object,
+> = {
+  [K in keys extends ReadonlyArray<infer U> ? U : never]: objectValues;
+};
+
+export type SheetColumns = string[];
+
+export interface ExcelSheet<T = object> {
+  name: string;
+  columns: SheetColumns;
+  data: ObjectFromList<SheetColumns, T>[];
 }

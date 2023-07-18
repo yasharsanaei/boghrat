@@ -8,10 +8,10 @@ import { ExcelDoc, ExcelSheet } from '../types/excel';
   providedIn: 'root',
 })
 export class DocumentService {
-  documents$: BehaviorSubject<ExcelDoc<unknown>[]>;
+  documents$: BehaviorSubject<ExcelDoc[]>;
 
   constructor() {
-    this.documents$ = new BehaviorSubject<ExcelDoc<unknown>[]>(
+    this.documents$ = new BehaviorSubject<ExcelDoc[]>(
       this.readDocumentsFromLocalStorage() || [],
     );
   }
@@ -24,9 +24,20 @@ export class DocumentService {
       const workBook: WorkBook = read(fileReader.result, {
         type: 'buffer',
       });
-      const sheets: ExcelSheet<unknown> = {};
+      const sheets: ExcelSheet[] = [];
+
       Object.keys(workBook.Sheets).forEach((key) => {
-        sheets[key] = utils.sheet_to_json(workBook.Sheets[key]);
+        console.log(
+          ' -----------> utils.sheet_to_json(workBook.Sheets[key]).at(0): ',
+          utils.sheet_to_json(workBook.Sheets[key]).at(0),
+        );
+        sheets.push({
+          name: key,
+          columns: Object.keys(
+            utils.sheet_to_json(workBook.Sheets[key]).at(0) || {},
+          ),
+          data: utils.sheet_to_json(workBook.Sheets[key]),
+        });
       });
 
       this.addDocument({
@@ -38,7 +49,7 @@ export class DocumentService {
     };
   }
 
-  private addDocument(newDoc: ExcelDoc<unknown>) {
+  private addDocument(newDoc: ExcelDoc) {
     const docs = this.documents$.value;
     this.documents$.next([...docs, newDoc]);
     this.writeDocumentsToLocalStorage();
@@ -61,6 +72,6 @@ export class DocumentService {
   private readDocumentsFromLocalStorage() {
     const docs = localStorage.getItem('documents$');
     if (docs === null) return undefined;
-    return JSON.parse(docs) as ExcelDoc<unknown>[];
+    return JSON.parse(docs) as ExcelDoc[];
   }
 }
