@@ -31,7 +31,6 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 export class TableComponent {
   data: ObjectFromList<SheetColumns>[] = [];
   columns: SheetColumns = [];
-  name = '';
 
   tableData: WritableSignal<ObjectFromList<SheetColumns>[]> = signal([]);
   // tableColumns: WritableSignal<SheetColumns> = signal([]);
@@ -40,7 +39,6 @@ export class TableComponent {
   set sheet(_value: ExcelSheet) {
     this.data = _value.data;
     this.columns = _value.columns;
-    this.name = _value.name;
     this.tableData.set(_value.data.splice(0, 20));
   }
 
