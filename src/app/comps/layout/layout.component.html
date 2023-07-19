@@ -9,24 +9,31 @@
     <mat-toolbar>Recent files</mat-toolbar>
     <mat-nav-list>
       <!--TODO: list of uploaded files-->
-      <a mat-list-item href="#" (click)="drawer.close()"
-        >list of uploaded files</a
+      <a
+        mat-list-item
+        *ngFor="let doc of documents()"
+        (click)="drawer.close()"
+        [routerLink]="['/document', doc.id]"
+        >{{ doc.name }}</a
       >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <header>
       <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          matTooltip="Recent uploaded files"
-        >
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span>Boghrat</span>
+        <div class="tw-flex tw-items-center tw-gap-4 tw-w-full">
+          <button
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            (click)="drawer.toggle()"
+            matTooltip="Recent uploaded files"
+          >
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
+          <span>Boghrat</span>
+          <a mat-button routerLink="/"> Home </a>
+        </div>
       </mat-toolbar>
     </header>
     <div class="tw-container tw-mx-auto tw-w-auto tw-py-4">
