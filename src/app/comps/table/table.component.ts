@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   Input,
+  Signal,
   signal,
   ViewChild,
   WritableSignal,
@@ -17,6 +19,7 @@ import {
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-table',
@@ -28,6 +31,7 @@ import {
     MatCardModule,
     MatSortModule,
     MatPaginatorModule,
+    MatCheckboxModule,
   ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
@@ -37,14 +41,23 @@ export class TableComponent {
   columns: SheetColumns = [];
 
   tableData: WritableSignal<ObjectFromList<SheetColumns>[]> = signal([]);
-
-  // tableColumns: WritableSignal<SheetColumns> = signal([]);
+  tableColumns: WritableSignal<{ col: string; isShown: boolean }[]> = signal(
+    [],
+  );
+  activeTableColumns: Signal<string[]> = computed(() =>
+    this.tableColumns()
+      .filter((t) => t.isShown)
+      .map((t) => t.col),
+  );
 
   @Input({ required: true })
   set sheet(_value: ExcelSheet) {
     this.data = _value.data;
     this.columns = _value.columns;
     this.tableData.set(_value.data.slice(0, 20));
+    this.tableColumns.set(
+      _value.columns.map((c) => ({ col: c, isShown: true })),
+    );
   }
 
   @ViewChild('matTable') matTable: MatTable<any> | undefined = undefined;
@@ -97,5 +110,15 @@ export class TableComponent {
         (page.pageIndex + 1) * page.pageSize,
       ),
     );
+  }
+
+  toggleColumn(col: string) {
+    this.tableColumns.update((columns) => {
+      const index = columns.findIndex((c) => c.col === col);
+      columns[index].isShown = !columns[index].isShown;
+      return columns;
+    });
+    console.log('------> tableColumns: ', this.activeTableColumns());
+    this.matTable?.renderRows();
   }
 }
