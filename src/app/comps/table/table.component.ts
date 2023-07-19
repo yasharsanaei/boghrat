@@ -12,7 +12,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSortModule, Sort } from '@angular/material/sort';
 
 import { ExcelSheet, ObjectFromList, SheetColumns } from '../../types/excel';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
@@ -33,24 +37,27 @@ export class TableComponent {
   columns: SheetColumns = [];
 
   tableData: WritableSignal<ObjectFromList<SheetColumns>[]> = signal([]);
+
   // tableColumns: WritableSignal<SheetColumns> = signal([]);
 
   @Input({ required: true })
   set sheet(_value: ExcelSheet) {
     this.data = _value.data;
     this.columns = _value.columns;
-    this.tableData.set(_value.data.splice(0, 20));
+    this.tableData.set(_value.data.slice(0, 20));
   }
 
   @ViewChild('matTable') matTable: MatTable<any> | undefined = undefined;
+  @ViewChild('paginator') paginator: MatPaginator | undefined = undefined;
 
   sortChange($event: Sort) {
     if ($event.direction === '') {
       this.tableData.set(this.data);
     }
-    this.tableData.mutate((data) => {
-      return data.sort((a, b) => this.sort(a, b, $event));
-    });
+    this.tableData.set(
+      this.data.sort((a, b) => this.sort(a, b, $event)).slice(0, 20),
+    );
+    this.paginator?.firstPage();
     this.matTable?.renderRows();
   }
 

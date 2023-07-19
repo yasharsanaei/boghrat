@@ -3,7 +3,11 @@
 <mat-divider />
 
 <div class="tw-mt-8" *ngIf="sheets() !== undefined">
-  <ng-container *ngFor="let sheet of sheets()">
-    <app-table [sheet]="sheet" />
-  </ng-container>
+  <mat-tab-group>
+    <ng-container *ngFor="let sheet of sheets()">
+      <mat-tab [label]="sheet.name">
+        <app-table [sheet]="sheet" />
+      </mat-tab>
+    </ng-container>
+  </mat-tab-group>
 </div>

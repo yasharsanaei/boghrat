@@ -10,6 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { TableComponent } from '../../comps/table/table.component';
 import { DocumentService } from '../../services/document.service';
 import { ExcelDoc, ExcelSheet } from '../../types/excel';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-document',
@@ -20,6 +21,7 @@ import { ExcelDoc, ExcelSheet } from '../../types/excel';
     MatListModule,
     MatTableModule,
     MatSortModule,
+    MatTabsModule,
   ],
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.scss'],
