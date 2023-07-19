@@ -41,6 +41,5 @@ export class DocumentComponent {
       ]).pipe(map(([params, doc]) => doc.find((d) => d.id === params['id']))),
     );
     this.sheets = computed(() => this.document()?.sheets || []);
-    console.log('-----> this.sheets: ', this.sheets());
   }
 }

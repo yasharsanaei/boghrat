@@ -27,10 +27,6 @@ export class DocumentService {
       const sheets: ExcelSheet[] = [];
 
       Object.keys(workBook.Sheets).forEach((key) => {
-        console.log(
-          ' -----------> utils.sheet_to_json(workBook.Sheets[key]).at(0): ',
-          utils.sheet_to_json(workBook.Sheets[key]).at(0),
-        );
         sheets.push({
           name: key,
           columns: Object.keys(

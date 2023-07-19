@@ -118,7 +118,6 @@ export class TableComponent {
       columns[index].isShown = !columns[index].isShown;
       return columns;
     });
-    console.log('------> tableColumns: ', this.activeTableColumns());
     this.matTable?.renderRows();
   }
 }
