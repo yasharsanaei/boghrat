@@ -3,11 +3,11 @@
   <div class="mat-elevation-z8">
     <table
       mat-table
-      [dataSource]="tableData()"
       matSort
+      [dataSource]="tableData()"
       (matSortChange)="sortChange($event)"
-      class="mat-elevation-z8"
       #matTable
+      class="mat-elevation-z8"
     >
       <ng-container *ngFor="let col of columns" [matColumnDef]="col">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col }}</th>
@@ -16,12 +16,15 @@
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
       <tr mat-row *matRowDef="let row; columns: columns"></tr>
     </table>
-    <!--    <mat-paginator-->
-    <!--      [pageSizeOptions]="[5, 10, 20]"-->
-    <!--      showFirstLastButtons-->
-    <!--      aria-label="Select page of periodic elements"-->
-    <!--    >-->
-    <!--    </mat-paginator>-->
+    <mat-paginator
+      [length]="data.length"
+      [pageSizeOptions]="[10, 20, 50]"
+      (page)="pageEvent($event)"
+      [pageSize]="20"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
   </div>
 </ng-container>
 

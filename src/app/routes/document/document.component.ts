@@ -11,18 +11,6 @@ import { TableComponent } from '../../comps/table/table.component';
 import { DocumentService } from '../../services/document.service';
 import { ExcelDoc, ExcelSheet } from '../../types/excel';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-];
-
 @Component({
   selector: 'app-document',
   standalone: true,
@@ -37,9 +25,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./document.component.scss'],
 })
 export class DocumentComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-
   document: Signal<ExcelDoc | undefined>;
   sheets: Signal<ExcelSheet[] | []>;
 

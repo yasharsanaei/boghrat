@@ -4,10 +4,6 @@
 
 <div class="tw-mt-8" *ngIf="sheets() !== undefined">
   <ng-container *ngFor="let sheet of sheets()">
-    <app-table
-      [name]="sheet.name"
-      [data]="sheet.data"
-      [columns]="sheet.columns"
-    />
+    <app-table [sheet]="sheet" />
   </ng-container>
 </div>
